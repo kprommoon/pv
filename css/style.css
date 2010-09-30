@@ -1,0 +1,221 @@
+/**
+ * Generic
+ */
+* {
+    padding: 0;
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 12px;
+    color: #039;
+}
+
+a {
+    color: #06c;
+}
+
+.clearfix:after {
+	content: ".";
+	display: block;
+	clear: both;
+	visibility: hidden;
+	line-height: 0;
+	height: 0;
+}
+
+.clearfix {
+	display: inline-block;
+}
+
+html[xmlns] .clearfix {
+	display: block;
+}
+
+* html .clearfix {
+	height: 1%;
+}
+
+.no-pointer {
+    cursor: default;
+}
+
+/**
+ * Icons
+ */
+
+button.project {
+    background-image: url(../images/icons/folder.png);
+}
+
+button.timesheet {
+    background-image: url(../images/icons/calendar.png);
+}
+
+button.data {
+    background-image: url(../images/icons/database.png);
+}
+
+button.hr {
+    background-image: url(../images/icons/group.png);
+}
+
+button.after-sale {
+    background-image: url(../images/icons/money_dollar.png);
+}
+
+button.setting {
+    background-image: url(../images/icons/wrench.png);
+}
+
+button.document {
+    background-image: url(../images/icons/page_word.png);
+}
+
+/**
+ * Application Tab
+ * ! Note that it still has a bug if there are too many tabs
+ */
+.x-tab-strip-active .sme-kit { /* SME Kit Tab when selected */
+    background-image: url(../images/sme-kit-active.png);
+    background-position: 50% 50% !important;
+}
+
+.sme-kit { /* SME Kit Tab when not selected */
+    background-image: url(../images/sme-kit.png);
+    background-position: 50% 50% !important;
+}
+    .sme-kit:hover { /* SME Kit Tab when hovered */
+        background-image: url(../images/sme-kit-hover.png);
+        background-position: 50% 50% !important;
+    }
+
+#home { /* SME Kit Panel Background */
+    background-image: url(../images/panel-bg.png);
+    background-repeat: repeat-x;
+}
+
+#dashboard > div > div > .x-panel-body { /* SME Kit Panel Background */
+    background: none;
+}
+
+
+#home .x-panel-body { /* SME Kit Panel Background */
+    background-image: url(../images/panel-bg.png);
+    background-repeat: repeat-x;
+}
+
+#home > .x-panel-bwrap { /* eliminates extra div */
+    display: none;
+}
+
+.x-apptab-strip .x-tab-strip-top { /* customizes SME Kit Tab */
+    background-color: #006;
+    background-image: none;
+}
+
+/* customizes SME Kit Tab */
+.apptab a,
+.apptab em,
+.apptab a > em > span {
+    background-image: none !important;
+}
+
+/**
+ * Dashboard
+ */
+#dashboard > div > div > div { /* fixes the horizontal scroll bar */
+    overflow: hidden !important;
+}
+
+#userbar {
+    padding: 5px;
+    height: 20px;
+    line-height: 20px;
+}
+
+#company-name {
+    float: left;
+    width: 50%;
+}
+    #company-name #search-field { /* adds a padding to the search field */
+        padding: 0 5px;
+    }
+        #company-name span div{ /* prevents divs from pushes the line */
+            display: inline;
+        }
+
+#link-bar {
+    float: right;
+}
+
+#link-bar span { /* adds a seperator between link-bar items */
+    border-left: 1px solid #999;
+    padding: 5px;
+}
+
+#link-bar span:first-child { /* adds a seperator between link-bar items */
+    border-left: 0 none;
+}
+
+/* using ExtJS, we don't need this
+#navigation {
+    margin: 0 auto;
+    width: 975px;
+}
+*/
+
+#app-menu {
+    background-color: #acf;
+    padding: 3px 3px 0;
+    margin: 3px;
+    width: 320px;
+    float: left;
+}
+
+#doc-menu {
+    background-color: #acf;
+    padding: 3px 3px 0;
+    margin: 3px;
+    width: 630px;
+    float: left;
+}
+
+.menu-title {
+/*
+    background-color: #d5e8ff;
+    padding: 3px;
+    width: 100px;
+*/
+    background-image: url(../images/menu-title.png);
+    width: 156px;
+    height: 17px;
+    padding-top: 4px;
+    display: block;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.menu-body {
+    background-color: #d5e8ff;
+    padding: 3px;
+}
+
+.nav-button { /* Should be changed into an image */
+    background-color: #dfefff;
+    border: 1px solid #9cf;
+    width: 100px;
+    height: 20px;
+    line-height: 20px;
+    float: left;
+    margin: 1px;
+    display: block;
+    color: #039;
+    text-decoration: none;
+}
+    .nav-button:hover {
+        color: #06c;
+    }
+    .nav-button img {
+        margin: 0 3px;
+        position: relative;
+    }
+
