@@ -6,8 +6,12 @@ Ext.onReady(function(){
         tbar: [{
             xtype: 'buttongroup',
             title: 'Application',
-            defaults: {scale: 'large'},
-            columns: 6,
+            columns: 3,
+            defaults: {
+		height:30,
+		minWidth: 80,
+		ctCls: 'main-menu-button'
+	    },
             items: [{
                 text: 'Project',
                 iconCls: 'project'
@@ -30,15 +34,19 @@ Ext.onReady(function(){
         },{
             xtype: 'buttongroup',
             title: 'Document',
-            columns: 6,
+            columns: 4,
             defaults: {
+		height:30,
                 iconCls: 'document',
-                scale: 'large'
-            },
+		minWidth: 80,
+		ctCls: 'main-menu-button'
+	    },
             items: [{
                 text: 'Quotation'
             },{
                 text: 'Invoice'
+            },{
+                text: 'Job'
             },{
                 text: 'PO'
             },{
@@ -46,7 +54,9 @@ Ext.onReady(function(){
             },{
                 text: 'Payment'
             },{
-                text: 'SO'
+                text: 'Project'
+            },{
+                text: 'Files'
             }]
         }]
     })
