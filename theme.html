@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<title>Research</title>
+<link rel="stylesheet" type="text/css" href="extjs/ext-all.css" />
+<link rel="stylesheet" type="text/css" title="gray" href="extjs/resources/css/xtheme-gray.css" /> 
+<style type="text/css">
+#main-tab .x-tab-panel-header {
+	padding:10px 0 2px;
+	background: #000000 !important;
+}
+
+.main-tab-home { 
+	background-image: url(icons/house.png);
+}
+
+#main-tab__home .x-tab-strip-text{
+	color: #000;
+}
+</style>
+
+<script type="text/javascript" src="extjs/ext-base.js"></script>
+<script type="text/javascript" src="extjs/ext-all-debug.js"></script>
+<script type="text/javascript" src="extjs/ux/TabCloseMenu.js"></script> 
+<script type="text/javascript">
+var home_panel = new Ext.Panel({
+	title: 'Home',
+	itemId: 'home',
+	tbar: ['<b>Femtocom co.,ltd.</b>',
+		'-'],
+ 	html: "First tab",
+	iconCls: 'main-tab-home'
+})
+
+var main_tab = new Ext.TabPanel({
+	id: 'main-tab',
+	activeTab: 0,
+	plain:true,
+    defaults:{autoScroll: true},
+	items: [home_panel,{
+  		title: 'Initial Tab',
+  		html: "Tab demo",
+		closable:true
+	}],
+	plugins: new Ext.ux.TabCloseMenu()
+})
+
+Ext.onReady(function(){
+    var viewport = new Ext.Viewport({
+        layout: 'fit',
+        defaults: {
+            autoScroll: true,
+            style: 'overflow-x: hidden'
+        },
+        items: main_tab
+    });
+})
+</script>
+</head>
+
+<body>
+</body>
+
+</html>
