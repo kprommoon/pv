@@ -7,6 +7,7 @@ Ext.onReady(function(){
             dragEl.applyStyles({border:'','z-index':2000});
             dragEl.update(el.dom.innerHTML);
             dragEl.addClass(el.dom.className + ' dd-proxy');
+            el.frame();
         },
         onDragOver: function(e, targetId) {
             //console.log('dragOver: ' + targetId);
@@ -30,6 +31,7 @@ Ext.onReady(function(){
             if(this.lastTarget) {
                 Ext.get(this.lastTarget).appendChild(el);
                 el.applyStyles({position:'', width:''});
+                el.highlight();
             }
             else {
                 el.applyStyles({position:'absolute'});
@@ -52,6 +54,7 @@ Ext.onReady(function(){
 
     // container 1
     var dd11 = Ext.get('dd1-item1');
+    dd11.setOpacity(0).fadeIn();
     dd11.dd = new Ext.dd.DDProxy('dd1-item1', 'group', {
         dragData:{name:'Item 1.1',index:1},
         scope:this,
@@ -61,6 +64,7 @@ Ext.onReady(function(){
     });
 
     var dd12 = Ext.get('dd1-item2');
+    dd12.setOpacity(0).fadeIn();
     dd12.dd = new Ext.dd.DDProxy('dd1-item2', 'group', {
         dragData:{name:'Item 1.2',index:2},
         scope:this,
@@ -70,16 +74,20 @@ Ext.onReady(function(){
     });
 
     var dd13 = Ext.get('dd1-item3');
+    dd13.setOpacity(0).fadeIn();
     dd13.dd = new Ext.dd.DDProxy('dd1-item3', 'group');
 
 
     // container 2
     var dd21 = Ext.get('dd2-item1');
+    dd21.setOpacity(0).fadeIn();
     dd21.dd = new Ext.dd.DDProxy('dd2-item1', 'group');
 
     var dd22 = Ext.get('dd2-item2');
+    dd22.setOpacity(0).fadeIn();
     dd22.dd = new Ext.dd.DDProxy('dd2-item2', 'group');
 
     var dd23 = Ext.get('dd2-item3');
+    dd23.setOpacity(0).fadeIn();
     dd23.dd = new Ext.dd.DDProxy('dd2-item3', 'group');
 })
