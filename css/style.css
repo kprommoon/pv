@@ -71,6 +71,22 @@ button.logout {
     background-image: url(../images/icons/user_go.png);
 }
 
+button.new {
+    background-image: url(../images/icons/page_add.png);
+}
+
+button.save {
+    background-image: url(../images/icons/page_save.png);
+}
+
+button.revision {
+    background-image: url(../images/icons/page_white_swoosh.png);
+}
+
+button.cancel {
+    background-image: url(../images/icons/page_white_delete.png);
+}
+
 .home {
     background-image: url(../images/icons/house.png);
 }
