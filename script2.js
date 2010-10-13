@@ -132,19 +132,22 @@ Ext.onReady(function(){
      */
     var appTab = new Ext.TabPanel({
         activeTab: 0,
+    	plain:true,
         id: 'application-tab',
-        defaults: {closable: true},
+        defaults: {
+            closable: true
+        },
         items: [{
             id: 'home',
             closable: false,
             title: 'Home',
             iconCls: 'home',
-            tbar: ['Company Name','-',
+            tbar: ['<b>Company Name</b>','-',
             new Ext.app.SearchField({
                 width:240,
                 store: this.searchStore,
                 paramName: 'q',
-            }),'->','FirstName LastName','-',
+            }),'->','<b>FirstName LastName</b>','-',
             {
                 text: 'Preference',
                 iconCls: 'preference'

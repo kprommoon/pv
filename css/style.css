@@ -87,8 +87,5 @@ button.logout {
  */
 #application-tab .x-tab-panel-header {
     padding: 10px 0 2px;
-}
-
-#application-tab .x-tab-strip-top {
-    background: transparent !important;
+    background: #000 !important;
 }
