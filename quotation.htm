@@ -77,6 +77,7 @@ Ext.onReady(function(){
     var projectMenu = new Ext.Toolbar({
         items: [{
             text: 'New',
+            iconCls: 'new',
             menu: new Ext.menu.Menu({
                 items: [{
                     text: 'Quotation'
@@ -97,7 +98,11 @@ Ext.onReady(function(){
                 }]
             })
         },{
-            text: 'Delete'
+            text: 'Delete',
+            iconCls: 'delete',
+        },{
+            text: 'Cancel',
+            iconCls: 'cancel'
         }]
     });
 
@@ -276,13 +281,13 @@ Ext.onReady(function(){
                 bbar: projectMenu
             },{
                 region: 'center',
-                tbar: ['<b>Quotation (10/10/2010)</b>',' ',
+                tbar: ['<b>Quotation</b>','|',
                     {
-                        text: 'New',
-                        iconCls: 'new'
-                    },{
                         text: 'Save',
                         iconCls: 'save'
+                    },{
+                        text: 'Import',
+                        iconCls: 'import'
                     },{
                         text: 'Revisions',
                         iconCls: 'revision',
@@ -293,9 +298,9 @@ Ext.onReady(function(){
                                 text: '10/10/2010'
                             }]
                         })
-                    },{
-                        text: 'Cancel',
-                        iconCls: 'cancel'
+                    },'->',{
+                        text: 'Done',
+                        iconCls: 'wip' //'done'
                     }]
             },{
                 region: 'east',
@@ -327,7 +332,7 @@ Ext.onReady(function(){
                 }],
                 bbar: {
                     items:[{
-                        text: 'Save',
+                        text: 'Submit',
                         iconCls: 'save',
 			            handler: function(){
                             var dh = Ext.DomHelper;

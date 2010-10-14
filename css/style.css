@@ -80,11 +80,31 @@ button.save {
 }
 
 button.revision {
-    background-image: url(../images/icons/page_white_swoosh.png);
+    background-image: url(../images/icons/clock.png);
+}
+/*
+button.cancel {
+    background-image: url(../images/icons/page_white_delete.png);
+}
+*/
+button.wip {
+    background-image: url(../images/icons/lock_open.png);
+}
+
+button.done {
+    background-image: url(../images/icons/lock_open.png);
+}
+
+button.import {
+    background-image: url(../images/icons/page_lightning.png);
+}
+
+button.delete {
+    background-image: url(../images/icons/page_delete.png);
 }
 
 button.cancel {
-    background-image: url(../images/icons/page_white_delete.png);
+    background-image: url(../images/icons/page_red.png);
 }
 
 .home {
