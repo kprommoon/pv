@@ -217,13 +217,13 @@ Ext.onReady(function(){
 		    var min = dt.getMinutes()
 		    var hour = dt.getHours()
 		    return ("" + hour + ":" + min + " " + month + "/" + day + "/" + year)
-    }    
-    
+    }
+
     var currentTime = function(){
 		var currentTime = new Date()
 		return dateTimeToText(currentTime)
     }
-         
+
     var messagePacking = function(message){
 	    var m = ""
    	    m = m + "<div class='by'>Apirak</div>"	    
@@ -281,7 +281,7 @@ Ext.onReady(function(){
                 bbar: projectMenu
             },{
                 region: 'center',
-                tbar: ['<b>Quotation</b>','|',
+                tbar: ['<b>Quotation</b>','-',
                     {
                         text: 'Save',
                         iconCls: 'save'
@@ -314,7 +314,11 @@ Ext.onReady(function(){
                     pack: 'start'
                 },
                 items: [{
-                    html:"<div id='log-list'><div class='stickynote'><div class='by'>Apirak</div><div class='message'>This quotation need to prove by p'Suda befor send to customer.</div><div class='date'>14:13 10/14/2010</div></div></div>",
+                    html: "<div id='log-list'><div class='stickynote'>" +
+                        "<div class='by'>Apirak</div>" +
+                        "<div class='message'>This quotation need to prove " +
+                        "by p'Suda befor send to customer.</div>" +
+                        "<div class='date'>14:13 10/14/2010</div></div></div>",
                     border:false,
                     flex:1
                 },{
