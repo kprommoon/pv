@@ -82,6 +82,22 @@ button.save {
 button.revision {
     background-image: url(../images/icons/clock.png);
 }
+
+button.add-member {
+    background-image: url(../images/icons/user_add.png);
+}
+
+button.del-member {
+    background-image: url(../images/icons/user_delete.png);
+}
+
+button.add-prop {
+    background-image: url(../images/icons/table_add.png);
+}
+
+button.del-prop {
+    background-image: url(../images/icons/table_delete.png);
+}
 /*
 button.cancel {
     background-image: url(../images/icons/page_white_delete.png);

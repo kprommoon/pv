@@ -27,6 +27,7 @@
         color: #fff;
         font-size: 14px;
         padding: 2px 5px;
+        font-weight: bold;
     }
 
     .message-body {
@@ -217,7 +218,7 @@ Ext.onReady(function(){
 	            enableFont: false,
 	            enableLinks: false,
 	            enableFontSize: false,
-    	        enableSourceEdit: false,
+    	        enableSourceEdit: false
             }],
             bbar: {
                 items:[{
@@ -237,8 +238,140 @@ Ext.onReady(function(){
     ];
 
     /*!
+     * Project Form
+     */
+    var projectForm = new Ext.FormPanel({
+        labelAlign: 'top',
+        autoScroll: true,
+        frame:true,
+        items: [{
+            layout:'column',
+            items:[{
+                columnWidth:.5,
+                layout: 'form',
+                items: [{
+                    xtype:'textfield',
+                    fieldLabel: 'Code',
+                    name: 'code',
+                    anchor:'95%'
+                }, {
+                    xtype:'textfield',
+                    fieldLabel: 'Customer',
+                    name: 'customer',
+                    anchor:'95%'
+                },{
+                    xtype: 'htmleditor',
+                    fieldLabel: 'Description',
+                    name: 'description',
+                    anchor: '95%',
+    	            enableColors: false,
+                    enableAlignments: false,
+	                enableFont: false,
+	                enableLinks: false,
+	                enableFontSize: false,
+        	        enableSourceEdit: false,
+                    height: 116
+                }]
+            },{
+                columnWidth:.5,
+                layout: 'form',
+                items: [{
+                    xtype:'textfield',
+                    fieldLabel: 'Name',
+                    name: 'name',
+                    anchor:'95%'
+                },{
+                    xtype:'datefield',
+                    fieldLabel: 'Open Date',
+                    name: 'open',
+                    anchor:'95%',
+                    value: getDate()
+                },{
+                    xtype:'textfield',
+                    fieldLabel: 'Owner',
+                    name: 'owner',
+                    anchor:'95%'
+                },{
+                    xtype:'textfield',
+                    fieldLabel: 'Type',
+                    name: 'type',
+                    anchor:'95%'
+                },{
+                    xtype:'datefield',
+                    fieldLabel: 'Close Date',
+                    name: 'close',
+                    anchor:'95%'
+                }]
+            }]
+        },{
+            xtype: 'grid',
+            title: 'Members',
+            autoHeight: true,
+            style: 'margin-bottom: 10px',
+            columns: [
+                {header: "Code", sortable: true},
+                {header: "Name", sortable: true, width: 150},
+                {header: "Position", sortable: true}
+            ],
+            store: new Ext.data.Store({
+                data: [
+                    [
+                        "01",
+                        "John Doe",
+                        "Project Leader"
+                    ],[
+                        "02",
+                        "Jane Doe",
+                        "Programmer"
+                    ]
+                ],
+                reader: new Ext.data.ArrayReader({id: 'id'},[
+                    'code',
+                    'name',
+                    'position'
+                ])
+            }),
+            bbar: [{
+                text: 'Add Member',
+                iconCls: 'add-member'
+            },{
+                text: 'Delete Member',
+                iconCls: 'del-member'
+            }]
+        }, new Ext.grid.PropertyGrid({
+            title: 'Properties',
+            autoHeight: true,
+            propertyNames: {
+                budget: 'Budget',
+                expected: 'Expected Finish',
+                supplier: 'Supplier'
+            },
+            source: {
+                budget: '',
+                expected: '',
+                supplier: ''
+            },
+            bbar: [{
+                text: 'Add Property',
+                iconCls: 'add-prop'
+            },{
+                text: 'Delete Property',
+                iconCls: 'del-prop'
+            }]
+        })]
+    });
+
+    /*!
      * Message Board functions
      */
+
+    function getDate() {
+        var dt = new Date();
+	    var month = dt.getMonth() + 1
+	    var day = dt.getDate()
+	    var year = dt.getFullYear()
+	    return ("" + month + "/" + day + "/" + year)
+    }
     function dateTimeToText(dt) {
 		    var month = dt.getMonth() + 1
 		    var day = dt.getDate()
@@ -310,13 +443,16 @@ Ext.onReady(function(){
                 items: [treePan],
                 bbar: projectMenu
             },{
-                region: 'center'
+                region: 'center',
+                title: 'Demo Project',
+                layout: 'fit',
+                items: [projectForm]
             },{
                 region: 'east',
                 title: 'Message Board',
                 layout: 'border',
                 items: mesBoard,
-                width: 300,
+                width: 250,
                 split: true,
                 collapsible: true
             }]
