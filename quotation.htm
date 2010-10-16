@@ -15,6 +15,37 @@
   <!-- page specific -->
   <link rel="stylesheet" type="text/css" href="css/style.css" />
 
+  <style type="text/css">
+    .message {
+        margin: 7px 5px;
+        background-color: #eee;
+        border: 1px solid #999;
+    }
+
+    .message-top {
+        background-color: #777;
+        color: #fff;
+        font-size: 14px;
+        padding: 2px 5px;
+        font-weight: bold;
+    }
+
+    .message-body {
+        font-size: 12px;
+        padding: 2px 5px;
+    }
+
+    .message-bottom {
+        border-top: 1px solid #fff;
+        margin-top: 5px;
+        padding: 2px 5px;
+        font-size: 10px;
+        text-align: right;
+    }
+
+
+  </style>
+
   <!-- ** Javascript ** -->
 
   <!-- base library -->
@@ -28,46 +59,6 @@
   <script type="text/javascript" src="extjs/ux/SearchField.js"></script>
   <script type="text/javascript" src="extjs/ux/TabCloseMenu.js"></script>
 
-
-<style type="text/css">
-#application-tab .x-tab-strip-spacer {
-	border-color: #EAEAEA;
-}
-
-#home-toolbar {
-    /* margin: -3px 0 0; */
-    border-top: 1px solid #D0D0D0;
-}
-
-.stickynote {
-    background: #fff29b;
-    margin: 5px;
-}
-
-.stickynote .by {
-    color:#c88818;
-    font-size:13px;
-    text-align:center;
-    padding:2px;
-}
-
-.stickynote .date {
-    background-color:#f9eb8c;
-    color: #c88818;
-    bottom:0;
-    font-size:9px;
-    padding:1px 2px;
-    text-align:right;
-}
-
-.stickynote .message {
-    color:#333;
-    font-size: 12px;
-    padding:0 5px 5px;
-}
-
-</style>
-
   <!-- page specific -->
   <script type="text/javascript">
 Ext.onReady(function(){
@@ -77,7 +68,6 @@ Ext.onReady(function(){
     var projectMenu = new Ext.Toolbar({
         items: [{
             text: 'New',
-            iconCls: 'new',
             menu: new Ext.menu.Menu({
                 items: [{
                     text: 'Quotation'
@@ -98,11 +88,7 @@ Ext.onReady(function(){
                 }]
             })
         },{
-            text: 'Delete',
-            iconCls: 'delete',
-        },{
-            text: 'Cancel',
-            iconCls: 'cancel'
+            text: 'Delete'
         }]
     });
 
@@ -207,10 +193,186 @@ Ext.onReady(function(){
         })
     });
 
-    /*
-     * Application Tab post function
+    /*!
+     * Message Board
      */
-    var dateTimeToText = function(dt){
+    var mesBoard = [
+        {
+            region: 'center',
+            layout: 'fit',
+            items: [{
+                autoScroll: true,
+                html: '<div id="mboard">' + message('This quotation need to ' +
+                    'prove by p\'Suda befor send to customer.') + '</div>'
+            }]
+        },{
+            region: 'south',
+            height: 150,
+            split: false,
+            title: 'Post a message',
+            items: [{
+                xtype: 'htmleditor',
+                id: 'posttext',
+	            enableColors: false,
+                enableAlignments: false,
+	            enableFont: false,
+	            enableLinks: false,
+	            enableFontSize: false,
+    	        enableSourceEdit: false
+            }],
+            bbar: {
+                items:[{
+                    text: 'Submit',
+                    iconCls: 'save',
+    	            handler: function(){
+                        var dh = Ext.DomHelper;
+						postText = Ext.getCmp('posttext').getValue();
+		                mboard = Ext.getDom('mboard').innerHTML;
+		                mboard += message(postText);
+		                Ext.getDom('mboard').innerHTML = mboard;
+		                Ext.getCmp('posttext').setValue("");
+		            }
+                }]
+            }
+        }
+    ];
+
+    /*!
+     * Project Form
+     */
+    var projectForm = new Ext.FormPanel({
+        labelAlign: 'top',
+        autoScroll: true,
+        frame:true,
+        items: [{
+            layout:'column',
+            items:[{
+                columnWidth:.5,
+                layout: 'form',
+                items: [{
+                    xtype:'textfield',
+                    fieldLabel: 'Code',
+                    name: 'code',
+                    anchor:'95%'
+                }, {
+                    xtype:'textfield',
+                    fieldLabel: 'Customer',
+                    name: 'customer',
+                    anchor:'95%'
+                },{
+                    xtype: 'htmleditor',
+                    fieldLabel: 'Description',
+                    name: 'description',
+                    anchor: '95%',
+    	            enableColors: false,
+                    enableAlignments: false,
+	                enableFont: false,
+	                enableLinks: false,
+	                enableFontSize: false,
+        	        enableSourceEdit: false,
+                    height: 116
+                }]
+            },{
+                columnWidth:.5,
+                layout: 'form',
+                items: [{
+                    xtype:'textfield',
+                    fieldLabel: 'Name',
+                    name: 'name',
+                    anchor:'95%'
+                },{
+                    xtype:'datefield',
+                    fieldLabel: 'Open Date',
+                    name: 'open',
+                    anchor:'95%',
+                    value: getDate()
+                },{
+                    xtype:'textfield',
+                    fieldLabel: 'Owner',
+                    name: 'owner',
+                    anchor:'95%'
+                },{
+                    xtype:'textfield',
+                    fieldLabel: 'Type',
+                    name: 'type',
+                    anchor:'95%'
+                },{
+                    xtype:'datefield',
+                    fieldLabel: 'Close Date',
+                    name: 'close',
+                    anchor:'95%'
+                }]
+            }]
+        },{
+            xtype: 'grid',
+            title: 'Members',
+            autoHeight: true,
+            style: 'margin-bottom: 10px',
+            columns: [
+                {header: "Code", sortable: true},
+                {header: "Name", sortable: true, width: 150},
+                {header: "Position", sortable: true}
+            ],
+            store: new Ext.data.Store({
+                data: [
+                    [
+                        "01",
+                        "John Doe",
+                        "Project Leader"
+                    ],[
+                        "02",
+                        "Jane Doe",
+                        "Programmer"
+                    ]
+                ],
+                reader: new Ext.data.ArrayReader({id: 'id'},[
+                    'code',
+                    'name',
+                    'position'
+                ])
+            }),
+            bbar: [{
+                text: 'Add Member',
+                iconCls: 'add-member'
+            },{
+                text: 'Delete Member',
+                iconCls: 'del-member'
+            }]
+        }, new Ext.grid.PropertyGrid({
+            title: 'Properties',
+            autoHeight: true,
+            propertyNames: {
+                budget: 'Budget',
+                expected: 'Expected Finish',
+                supplier: 'Supplier'
+            },
+            source: {
+                budget: '',
+                expected: '',
+                supplier: ''
+            },
+            bbar: [{
+                text: 'Add Property',
+                iconCls: 'add-prop'
+            },{
+                text: 'Delete Property',
+                iconCls: 'del-prop'
+            }]
+        })]
+    });
+
+    /*!
+     * Message Board functions
+     */
+
+    function getDate() {
+        var dt = new Date();
+	    var month = dt.getMonth() + 1
+	    var day = dt.getDate()
+	    var year = dt.getFullYear()
+	    return ("" + month + "/" + day + "/" + year)
+    }
+    function dateTimeToText(dt) {
 		    var month = dt.getMonth() + 1
 		    var day = dt.getDate()
 		    var year = dt.getFullYear()
@@ -219,18 +381,25 @@ Ext.onReady(function(){
 		    return ("" + hour + ":" + min + " " + month + "/" + day + "/" + year)
     }
 
-    var currentTime = function(){
+    function currentTime() {
 		var currentTime = new Date()
 		return dateTimeToText(currentTime)
     }
 
-    var messagePacking = function(message){
-	    var m = ""
-   	    m = m + "<div class='by'>Apirak</div>"	    
-	    m = m + "<div class='message'>" + message + "</div>"
-	    m = m + "<div class='date'>" + currentTime() + "</div>"
-	    m = "<div class='stickynote'>" + m + "</div>"
-	    return m
+    function message(text) {
+        var result = '';
+        result += '<div class="message">';
+        result += '<div class="message-top">';
+        result += 'User';
+        result += '</div>';
+        result += '<div class="message-body">';
+        result += text;
+        result += '</div>';
+        result += '<div class="message-bottom">';
+        result += currentTime();
+        result += '</div>';
+        result += '</div>';
+        return result;
     }
 
     /*!
@@ -239,7 +408,6 @@ Ext.onReady(function(){
     var appTab = new Ext.TabPanel({
         activeTab: 1,
     	plain:true,
-    	border: false,
         id: 'application-tab',
         defaults: {
             closable: true
@@ -249,27 +417,22 @@ Ext.onReady(function(){
             closable: false,
             title: 'Home',
             iconCls: 'home',
-            tbar: new Ext.Toolbar({
-                id: 'home-toolbar',
-                border: true,
-                items: ['Company Name','-',
-                    new Ext.app.SearchField({
-                        width:240,
-                        store: this.searchStore,
-                        paramName: 'q',
-                    }),'->','FirstName LastName','-',
-                {
-                    text: 'Preference',
-                    iconCls: 'preference'
-                },'-',{
-                    text: 'Logout',
-                    iconCls: 'logout'
-                }]
-            }),
+            tbar: ['Company Name','-',
+            new Ext.app.SearchField({
+                width:240,
+                store: this.searchStore,
+                paramName: 'q',
+            }),'->','FirstName LastName','-',
+            {
+                text: 'Preference',
+                iconCls: 'preference'
+            },'-',{
+                text: 'Logout',
+                iconCls: 'logout'
+            }],
         },{
-            title: 'Honda CSR',
+            title: 'Demo Project',
             layout: 'border',
-            border: false,
             items: [{
                 region: 'west',
                 title: 'Project Bag',
@@ -281,73 +444,17 @@ Ext.onReady(function(){
                 bbar: projectMenu
             },{
                 region: 'center',
-                tbar: ['<b>Quotation</b>','-',
-                    {
-                        text: 'Save',
-                        iconCls: 'save'
-                    },{
-                        text: 'Import',
-                        iconCls: 'import'
-                    },{
-                        text: 'Revisions',
-                        iconCls: 'revision',
-                        menu: new Ext.menu.Menu({
-                            items: [{
-                                text: '01/01/2010'
-                            },{
-                                text: '10/10/2010'
-                            }]
-                        })
-                    },'->',{
-                        text: 'Done',
-                        iconCls: 'wip' //'done'
-                    }]
+                title: 'Demo Project',
+                layout: 'fit',
+                items: [projectForm]
             },{
                 region: 'east',
                 title: 'Message Board',
-                layout: 'vbox',
-                width: 300,
+                layout: 'border',
+                items: mesBoard,
+                width: 250,
                 split: true,
-                collapsible: true,
-                layoutConfig: {
-                    align: 'stretch',
-                    pack: 'start'
-                },
-                items: [{
-                    html: "<div id='log-list'><div class='stickynote'>" +
-                        "<div class='by'>Apirak</div>" +
-                        "<div class='message'>This quotation need to prove " +
-                        "by p'Suda befor send to customer.</div>" +
-                        "<div class='date'>14:13 10/14/2010</div></div></div>",
-                    border:false,
-                    flex:1
-                },{
-                    xtype:'htmleditor',
-                    id:'messageLog',
-                    border: false,
-                    height:100,
-                    anchor:'98%',
-			        enableColors: false,
-                    enableAlignments: false,
-			        enableFont: false,
-			        enableLinks: false,
-			        enableFontSize: false,
-			        enableSourceEdit: false
-                }],
-                bbar: {
-                    items:[{
-                        text: 'Submit',
-                        iconCls: 'save',
-			            handler: function(){
-                            var dh = Ext.DomHelper;
-							temp_message = Ext.getCmp('messageLog').getValue();
-			                logListHTML = Ext.getDom('log-list').innerHTML;
-			                loglistHTML = logListHTML + messagePacking(temp_message);
-			                Ext.getDom('log-list').innerHTML = loglistHTML;
-			                Ext.getCmp('messageLog').setValue("");
-			            }
-                    }]
-                }
+                collapsible: true
             }]
         }],
         plugins: new Ext.ux.TabCloseMenu()
