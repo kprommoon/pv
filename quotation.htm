@@ -238,9 +238,10 @@ Ext.onReady(function(){
     ];
 
     /*!
-     * Project Form
+     * Quotation Form
      */
-    var projectForm = new Ext.FormPanel({
+    var sm = new Ext.grid.CheckboxSelectionModel();
+    var quoForm = new Ext.FormPanel({
         labelAlign: 'top',
         autoScroll: true,
         frame:true,
@@ -256,13 +257,163 @@ Ext.onReady(function(){
                     anchor:'95%'
                 }, {
                     xtype:'textfield',
-                    fieldLabel: 'Customer',
-                    name: 'customer',
+                    fieldLabel: 'Sales',
+                    name: 'sales',
+                    anchor:'95%'
+                }, {
+                    xtype:'textfield',
+                    fieldLabel: 'Project Code',
+                    name: 'pcode',
+                    anchor:'95%'
+                }]
+            },{
+                columnWidth:.5,
+                layout: 'form',
+                items: [{
+                    xtype:'datefield',
+                    fieldLabel: 'Issue Date',
+                    name: 'issue',
+                    anchor:'95%',
+                    value: getDate()
+                },{
+                    xtype:'datefield',
+                    fieldLabel: 'Validity',
+                    name: 'validity',
+                    anchor:'95%',
+                    value: getValidity()
+                }]
+            }]
+        },{
+            title: 'Customer',
+            items: [{
+                xtype: 'fieldset',
+                title: 'Customize customer',
+                checkboxToggle: true,
+                autoHeight: true,
+                collapsed: true,
+                items: [{
+                    layout:'column',
+                    items:[{
+                        columnWidth:.5,
+                        layout: 'form',
+                        items: [{
+                            xtype:'textfield',
+                            fieldLabel: 'Name',
+                            name: 'customname',
+                            anchor:'95%'
+                        }, {
+                            xtype:'combo',
+                            fieldLabel: 'Contact method',
+                            name: 'conmeth',
+                            mode: 'local',
+                            store: new Ext.data.SimpleStore({
+                                fields: ['id', 'value'],
+                                data: [
+                                    ['1','Name'],
+                                    ['2','Email'],
+                                    ['3','Mobile'],
+                                    ['4','Phone']
+                                ]
+                            }),
+                            displayField: 'value',
+                            triggerAction: 'all',
+                            anchor:'95%'
+                        }]
+                    },{
+                        columnWidth:.5,
+                        layout: 'form',
+                        items: [{
+                            xtype:'textfield',
+                            fieldLabel: 'Address line 1',
+                            name: 'address1',
+                            anchor:'95%'
+                        },{
+                            xtype:'textfield',
+                            fieldLabel: 'Address line 2',
+                            name: 'address2',
+                            anchor:'95%'
+                        },{
+                            xtype:'textfield',
+                            fieldLabel: 'Address line 3',
+                            name: 'address3',
+                            anchor:'95%'
+                        }]
+                    }]
+                }]
+            }]
+        },{
+            xtype: 'grid',
+            title: 'Details',
+            autoHeight: true,
+            style: 'margin-bottom: 10px',
+            columnLines: true,
+            sm: sm,
+            cm: new Ext.grid.ColumnModel({
+                columns: [
+                    sm,
+                    {header: "Description", sortable: true, dataIndex: 'desc', width: 200},
+                    {header: "Qty.", sortable: true, dataIndex: 'qty'},
+                    {header: "Unit Price", sortable: true, dataIndex: 'uprice'},
+                    {header: "Amount", sortable: true, dataIndex: 'amount'}
+                ]
+            }),
+            store: new Ext.data.Store({
+                data: [
+                    [
+                        "Lorem ipsum et dolor sit amet",
+                        "9.99",
+                        "9.99",
+                        "9999.99"
+                    ],[
+                        "Lorem ipsum et dolor sit amet",
+                        "9.99",
+                        "9.99",
+                        "9999.99"
+                    ],[
+                        "Lorem ipsum et dolor sit amet",
+                        "9.99",
+                        "9.99",
+                        "9999.99"
+                    ],[
+                        "Lorem ipsum et dolor sit amet",
+                        "9.99",
+                        "9.99",
+                        "9999.99"
+                    ]
+                ],
+                reader: new Ext.data.ArrayReader({id: 'id'},[
+                    {name: 'desc'},
+                    {name: 'qty'},
+                    {name: 'uprice'},
+                    {name: 'amount'}
+                ])
+            }),
+            bbar: [{
+                text: 'Add Detail',
+                iconCls: 'add-prop'
+            },{
+                text: 'Delete Detail',
+                iconCls: 'del-prop'
+            }]
+        },{
+            layout:'column',
+            items:[{
+                columnWidth:.5,
+                layout: 'form',
+                items: [{
+                    xtype:'textfield',
+                    fieldLabel: 'Total',
+                    name: 'total',
+                    anchor:'95%'
+                }, {
+                    xtype:'textfield',
+                    fieldLabel: 'Grand Total',
+                    name: 'grand total',
                     anchor:'95%'
                 },{
                     xtype: 'htmleditor',
-                    fieldLabel: 'Description',
-                    name: 'description',
+                    fieldLabel: 'Remark',
+                    name: 'remark',
                     anchor: '95%',
     	            enableColors: false,
                     enableAlignments: false,
@@ -277,88 +428,17 @@ Ext.onReady(function(){
                 layout: 'form',
                 items: [{
                     xtype:'textfield',
-                    fieldLabel: 'Name',
-                    name: 'name',
+                    fieldLabel: 'Vat %',
+                    name: 'vpercent',
                     anchor:'95%'
-                },{
-                    xtype:'datefield',
-                    fieldLabel: 'Open Date',
-                    name: 'open',
-                    anchor:'95%',
-                    value: getDate()
-                },{
+                }, {
                     xtype:'textfield',
-                    fieldLabel: 'Owner',
-                    name: 'owner',
-                    anchor:'95%'
-                },{
-                    xtype:'textfield',
-                    fieldLabel: 'Type',
-                    name: 'type',
-                    anchor:'95%'
-                },{
-                    xtype:'datefield',
-                    fieldLabel: 'Close Date',
-                    name: 'close',
+                    fieldLabel: 'Vat',
+                    name: 'vat',
                     anchor:'95%'
                 }]
             }]
-        },{
-            xtype: 'grid',
-            title: 'Members',
-            autoHeight: true,
-            style: 'margin-bottom: 10px',
-            columns: [
-                {header: "Code", sortable: true},
-                {header: "Name", sortable: true, width: 150},
-                {header: "Position", sortable: true}
-            ],
-            store: new Ext.data.Store({
-                data: [
-                    [
-                        "01",
-                        "John Doe",
-                        "Project Leader"
-                    ],[
-                        "02",
-                        "Jane Doe",
-                        "Programmer"
-                    ]
-                ],
-                reader: new Ext.data.ArrayReader({id: 'id'},[
-                    'code',
-                    'name',
-                    'position'
-                ])
-            }),
-            bbar: [{
-                text: 'Add Member',
-                iconCls: 'add-member'
-            },{
-                text: 'Delete Member',
-                iconCls: 'del-member'
-            }]
-        }, new Ext.grid.PropertyGrid({
-            title: 'Properties',
-            autoHeight: true,
-            propertyNames: {
-                budget: 'Budget',
-                expected: 'Expected Finish',
-                supplier: 'Supplier'
-            },
-            source: {
-                budget: '',
-                expected: '',
-                supplier: ''
-            },
-            bbar: [{
-                text: 'Add Property',
-                iconCls: 'add-prop'
-            },{
-                text: 'Delete Property',
-                iconCls: 'del-prop'
-            }]
-        })]
+        }]
     });
 
     /*!
@@ -368,6 +448,13 @@ Ext.onReady(function(){
     function getDate() {
         var dt = new Date();
 	    var month = dt.getMonth() + 1
+	    var day = dt.getDate()
+	    var year = dt.getFullYear()
+	    return ("" + month + "/" + day + "/" + year)
+    }
+    function getValidity() {
+        var dt = new Date();
+	    var month = dt.getMonth() + 2
 	    var day = dt.getDate()
 	    var year = dt.getFullYear()
 	    return ("" + month + "/" + day + "/" + year)
@@ -446,7 +533,7 @@ Ext.onReady(function(){
                 region: 'center',
                 title: 'Demo Project',
                 layout: 'fit',
-                items: [projectForm]
+                items: [quoForm]
             },{
                 region: 'east',
                 title: 'Message Board',
