@@ -1,3 +1,5 @@
+Ext.state.Manager.setProvider(new Ext.state.CookieProvider());
+
 Ext.onReady(function(){
     /*!
      * Recent Projects
@@ -30,11 +32,16 @@ Ext.onReady(function(){
             listeners: {
                 rowselect: {
                     fn: function(sm,index,record) {
-                        var newtab = appTab.add({
-                            title: record.data.name,
-                            html: 'I was modified on ' + record.data.modified
-                        })
-                        appTab.setActiveTab(newtab);
+                        if (!Ext.get(record.data.name)) { // If this tab is not opened
+                            var newtab = appTab.add({ // New tab
+                                id: record.data.name,
+                                title: record.data.name,
+                                html: 'I was modified on ' + record.data.modified
+                            })
+                            appTab.setActiveTab(newtab); // And set it active
+                        }
+                        else appTab.setActiveTab(Ext.get(record.data.name).id); //else activate this tab
+                        this.deselectRow(index); // deselect the grid
                     }
                 }
             }
@@ -136,6 +143,32 @@ Ext.onReady(function(){
         id: 'application-tab',
         defaults: {
             closable: true
+        },
+        stateEvents:['add', 'remove'],
+        getState:function() {
+            // declare an object to save state
+            var state = {};
+            var x = [];
+            for (i=0; i<this.items.items.length; i++) {
+                // copy desired config into state.items
+                x[i] = {
+                    title: this.items.items[i].title,
+                    id: this.items.items[i].id,
+                    html: this.items.items[i].body.dom.innerText
+                };
+            }
+            state = {items: x};
+            // return state
+            return state;
+        },
+        applyState:function(state) {
+            // add those status into appTab
+            for (i=1; i<state.items.length; i++)
+                this.add({
+                    title: state.items[i].title,
+                    id: state.items[i].id,
+                    html: state.items[i].html
+                });
         },
         items: [{
             id: 'home',
