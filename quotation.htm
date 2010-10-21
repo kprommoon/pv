@@ -475,19 +475,22 @@ Ext.onReady(function(){
             closable: false,
             title: 'Home',
             iconCls: 'home',
-            tbar: ['Company Name','-',
-            new Ext.app.SearchField({
-                width:240,
-                store: this.searchStore,
-                paramName: 'q',
-            }),'->','FirstName LastName','-',
-            {
-                text: 'Preference',
-                iconCls: 'preference'
-            },'-',{
-                text: 'Logout',
-                iconCls: 'logout'
-            }],
+            tbar: new Ext.Toolbar({
+                id: 'home-toolbar',
+                items: ['Company Name','-',
+                new Ext.app.SearchField({
+                    width:240,
+                    store: this.searchStore,
+                    paramName: 'q',
+                }),'->','FirstName LastName','-',
+                {
+                    text: 'Preference',
+                    iconCls: 'preference'
+                },'-',{
+                    text: 'Logout',
+                    iconCls: 'logout'
+                }]
+            })
         },{
             title: 'Demo Project',
             layout: 'border',
