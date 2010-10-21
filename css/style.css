@@ -31,6 +31,20 @@ html[xmlns] .clearfix {
     cursor: default;
 }
 
+
+/**
+ * Ext Hacks
+ */
+
+#application-tab .x-tab-strip-spacer {
+	border-color: #EAEAEA;
+}
+
+#home-toolbar {
+    /* margin: -3px 0 0; */
+    border-top: 1px solid #D0D0D0;
+}
+
 /**
  * Icons
  */
@@ -140,4 +154,35 @@ button.cancel {
 #application-tab .x-tab-panel-header {
     padding: 10px 0 2px;
     background: #000 !important;
+}
+
+/*!
+ * Sticky Notes
+ */
+
+.stickynote {
+    background: #fff29b;
+    margin: 5px;
+}
+
+.stickynote .by {
+    color:#c88818;
+    font-size:13px;
+    text-align:center;
+    padding:2px;
+}
+
+.stickynote .date {
+    background-color:#f9eb8c;
+    color: #c88818;
+    bottom:0;
+    font-size:9px;
+    padding:1px 2px;
+    text-align:right;
+}
+
+.stickynote .message {
+    color:#333;
+    font-size: 12px;
+    padding:0 5px 5px;
 }
