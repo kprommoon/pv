@@ -93,6 +93,10 @@ button.save {
     background-image: url(../images/icons/page_save.png);
 }
 
+button.load {
+    background-image: url(../images/icons/page_refresh.png);
+}
+
 button.revision {
     background-image: url(../images/icons/clock.png);
 }
