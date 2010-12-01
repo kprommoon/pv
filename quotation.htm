@@ -15,37 +15,6 @@
   <!-- page specific -->
   <link rel="stylesheet" type="text/css" href="css/style.css" />
 
-  <style type="text/css">
-    .message {
-        margin: 7px 5px;
-        background-color: #eee;
-        border: 1px solid #999;
-    }
-
-    .message-top {
-        background-color: #777;
-        color: #fff;
-        font-size: 14px;
-        padding: 2px 5px;
-        font-weight: bold;
-    }
-
-    .message-body {
-        font-size: 12px;
-        padding: 2px 5px;
-    }
-
-    .message-bottom {
-        border-top: 1px solid #fff;
-        margin-top: 5px;
-        padding: 2px 5px;
-        font-size: 10px;
-        text-align: right;
-    }
-
-
-  </style>
-
   <!-- ** Javascript ** -->
 
   <!-- base library -->
@@ -58,6 +27,8 @@
   <script type="text/javascript" src="extjs/ux/Portlet.js"></script>
   <script type="text/javascript" src="extjs/ux/SearchField.js"></script>
   <script type="text/javascript" src="extjs/ux/TabCloseMenu.js"></script>
+  <script type="text/javascript" src="extjs/DummyProjectBag.js"></script>
+  <script type="text/javascript" src="extjs/MessageBoard.js"></script>
 
   <!-- page specific -->
   <script type="text/javascript">
@@ -504,45 +475,53 @@ Ext.onReady(function(){
             closable: false,
             title: 'Home',
             iconCls: 'home',
-            tbar: ['Company Name','-',
-            new Ext.app.SearchField({
-                width:240,
-                store: this.searchStore,
-                paramName: 'q',
-            }),'->','FirstName LastName','-',
-            {
-                text: 'Preference',
-                iconCls: 'preference'
-            },'-',{
-                text: 'Logout',
-                iconCls: 'logout'
-            }],
+            tbar: new Ext.Toolbar({
+                id: 'home-toolbar',
+                items: ['Company Name','-',
+                new Ext.app.SearchField({
+                    width:240,
+                    store: this.searchStore,
+                    paramName: 'q',
+                }),'->','FirstName LastName','-',
+                {
+                    text: 'Preference',
+                    iconCls: 'preference'
+                },'-',{
+                    text: 'Logout',
+                    iconCls: 'logout'
+                }]
+            })
         },{
             title: 'Demo Project',
             layout: 'border',
-            items: [{
-                region: 'west',
-                title: 'Project Bag',
-                width: 200,
-                split: true,
-                collapsible: true,
-                layout: 'fit',
-                items: [treePan],
-                bbar: projectMenu
-            },{
+            items: [
+                DummyProjectBag,
+            {
                 region: 'center',
-                title: 'Demo Project',
+                tbar: ['<b>Quotation</b>','-',
+                    {
+                        text: 'Save',
+                        iconCls: 'save'
+                    },{
+                        text: 'Import',
+                        iconCls: 'import'
+                    },{
+                        text: 'Revisions',
+                        iconCls: 'revision',
+                        menu: new Ext.menu.Menu({
+                            items: [{
+                                text: '01/01/2010'
+                            },{
+                                text: '10/10/2010'
+                            }]
+                        })
+                    },'->',{
+                        text: 'Done',
+                        iconCls: 'wip' //'done'
+                    }],
                 layout: 'fit',
                 items: [quoForm]
-            },{
-                region: 'east',
-                title: 'Message Board',
-                layout: 'border',
-                items: mesBoard,
-                width: 250,
-                split: true,
-                collapsible: true
-            }]
+            }, MessageBoard]
         }],
         plugins: new Ext.ux.TabCloseMenu()
     });
